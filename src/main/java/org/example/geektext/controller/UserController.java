@@ -13,12 +13,20 @@ public class UserController {
     private final UserRepository userRepository;
 
    public UserController(UserRepository userRepository) {
-        this.userRepository = userRepository;
+
+       this.userRepository = userRepository;
     }
 
     @GetMapping("/{username}")
     public User findByUsername(@PathVariable String username) {
+
        return userRepository.findByUsername(username);
+    }
+
+    @PostMapping
+    public User create(@RequestBody User user) {
+
+       return userRepository.save(user);
     }
 }
 

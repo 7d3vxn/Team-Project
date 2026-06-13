@@ -1,0 +1,10 @@
+POST http://localhost8080/users
+Content-Type: application/json
+
+{
+"username": "Elias",
+"password": "",
+"name": "Elias Rowland",
+"email": "elias_rowland14@gmail.com",
+"address": "6401 nw catalina st 33302"
+}
