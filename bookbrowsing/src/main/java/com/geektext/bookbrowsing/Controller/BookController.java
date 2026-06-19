@@ -50,4 +50,14 @@ public class BookController {
             return ResponseEntity.noContent().build();
         }
     }
+
+    /**
+     * GET function to retrieve books with input rating and higher
+     * @param rating
+     * @return JSON data of books with input rating and higher
+     */
+    @GetMapping("/rated")
+    public List<BookEntity> getBooksRatedOver(@RequestParam double rating) {
+        return bookService.searchBooksByRatingAndOver(rating);
+    }
 }

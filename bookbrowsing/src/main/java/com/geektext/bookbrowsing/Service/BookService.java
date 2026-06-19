@@ -26,8 +26,14 @@ public class BookService {
         return bookRepo.findAll();
     }
 
+    // Searching for books by genre provided by keyword
     public List<BookEntity> searchBooksByGenre(String keyword) {
         return bookRepo.findBooksByGenre(keyword);
+    }
+
+    // Searching for books with rating [input] and above
+    public List<BookEntity>searchBooksByRatingAndOver(double rating) {
+        return bookRepo.findBooksByRatingOver(rating);
     }
 
 }
