@@ -25,4 +25,9 @@ public class BookService {
     public List<BookEntity>getBooks() {
         return bookRepo.findAll();
     }
+
+    public List<BookEntity> searchBooksByGenre(String keyword) {
+        return bookRepo.findBooksByGenre(keyword);
+    }
+
 }

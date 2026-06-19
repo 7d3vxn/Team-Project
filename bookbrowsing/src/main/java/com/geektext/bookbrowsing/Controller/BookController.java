@@ -3,10 +3,8 @@ package com.geektext.bookbrowsing.Controller;
 import com.geektext.bookbrowsing.Entity.BookEntity;
 import com.geektext.bookbrowsing.Service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -17,18 +15,39 @@ public class BookController {
     //This annotation allows us to reference our Service object
     @Autowired
     private BookService bookService;
-
-    // RequestBody will allow us to request JSON of our book
-    // POST function
+    /**
+     * POST function to add books to our database
+     * RequestBody will allow us to request JSON of our book
+     * @param bookEntity
+     * @return JSON with
+     */
     @PostMapping("/addBook")
     public BookEntity postBookDetails(@RequestBody BookEntity bookEntity) {
         return bookService.saveBookDetails(bookEntity);
     }
 
-    // GET function
-    // returns JSON data for all books in database
-    @GetMapping("/")
+    /**
+     * Simple GET function
+     * @return All books in database
+     */
+    @GetMapping("/allBooks")
     public List<BookEntity> getBooks() {
         return bookService.getBooks();
+    }
+
+    /**
+     * GET function to search books by genre, take multiple
+     * word inputs (EX. "Young Adult")
+     * @param keyword
+     * @return Books with genre matching keyword input
+     */
+    @GetMapping("/search")
+    public ResponseEntity<List<BookEntity>> getBooksByGenre(@RequestParam String keyword) {
+        List<BookEntity> foundBooks = bookService.searchBooksByGenre(keyword);
+        if (!foundBooks.isEmpty()) {
+            return ResponseEntity.ok(foundBooks);
+        } else {
+            return ResponseEntity.noContent().build();
+        }
     }
 }
