@@ -1,10 +1,39 @@
-POST http://localhost8080/users
+POST http://localhost:8080/users
 Content-Type: application/json
 
 {
-"username": "Elias",
-"password": "",
+"username": "jewls",
+"password": "Password1*",
 "name": "Elias Rowland",
 "email": "elias_rowland14@gmail.com",
 "address": "6401 nw catalina st 33302"
 }
+
+
+###
+
+POST http://localhost:8080/users/jewls/credit-cards
+Content-Type: application/json
+
+{
+  "cardNumber": "9103090909090909",
+  "expirationDate": "12/35",
+  "cvv": "133"
+}
+
+###
+
+
+PUT http://localhost:8080/users/jewls
+Content-Type: application/json
+
+{
+"password": "newpass*",
+"name": "Janelle J",
+"address": "64001 nw catalina st 323002"
+}
+
+###
+
+GET http://localhost:8080/users/jewls
+
