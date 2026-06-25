@@ -12,4 +12,21 @@ public class WishlistController {
     public List<String> getWishlistBooks(@PathVariable("wishlistId") int wishlistId) {
         return Arrays.asList("Harry Potter", "The Hobbit", "Clean Code");
     }
+
+    @PostMapping
+    public String createWishlist() {
+        return "Wishlist created";
+    }
+
+    @PostMapping("/{wishlistId}/books/{bookId}")
+    public String addBookToWishlist(@PathVariable("wishlistId") int wishlistId,
+                                    @PathVariable("bookId") int bookId) {
+        return "Book added to wishlist";
+    }
+
+    @DeleteMapping("/{wishlistId}/books/{bookId}")
+    public String removeBook(@PathVariable("wishlistId") int wishlistId,
+                             @PathVariable("bookId") int bookId){
+        return "Book removed from wishlist";
+    }
 }
