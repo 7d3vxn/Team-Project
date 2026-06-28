@@ -3,8 +3,10 @@ package com.geektext.bookbrowsing.Service;
 import com.geektext.bookbrowsing.Entity.BookEntity;
 import com.geektext.bookbrowsing.Repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.awt.print.Pageable;
 import java.util.List;
 
 /**
@@ -35,5 +37,6 @@ public class BookService {
     public List<BookEntity>searchBooksByRatingAndOver(double rating) {
         return bookRepo.findBooksByRatingOver(rating);
     }
+
 
 }

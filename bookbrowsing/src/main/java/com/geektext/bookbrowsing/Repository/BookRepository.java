@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.awt.print.Pageable;
 import java.util.List;
 
 /**
@@ -32,4 +33,21 @@ public interface BookRepository extends JpaRepository<BookEntity, String> {
      */
     @Query("SELECT b FROM BookEntity  b WHERE b.rating >= :rating")
     List<BookEntity> findBooksByRatingOver(@Param("rating") double rating);
+
+    /**
+     * SQL Query equivalent:
+     * SELECT title, concat(authfname, ' ', coalesce(authminit, ' '), ' ', authlname) AS author,
+     * genre, price, rating, soldcopies
+     * FROM book_details
+     * ORDER BY soldcopies DESC
+     * LIMIT 10;
+     */
+//    @Query("SELECT b.title, "
+//    + "CONCAT(b.authfname, ' ', "
+//    + "CASE WHEN b.authminit IS NOT NULL THEN CONCAT(b.authminit, ' .' ELSE '' END, "
+//    + "b.authlname as author, "
+//    + "b.genre, b.price, b.rating, b.soldcopies "
+//    + "FROM Book b "
+//    + "ORDER BY b.soldcopies DESC")
+
 }
