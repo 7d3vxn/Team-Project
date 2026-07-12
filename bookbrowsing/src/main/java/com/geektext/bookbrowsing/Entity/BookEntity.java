@@ -50,4 +50,6 @@ public class BookEntity {
 
     @Column(name = "rating")
     private double rating;
+
+    private String publisher;
 }

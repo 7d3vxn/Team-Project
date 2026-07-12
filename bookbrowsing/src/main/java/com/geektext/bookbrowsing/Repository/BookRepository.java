@@ -2,6 +2,7 @@ package com.geektext.bookbrowsing.Repository;
 
 import com.geektext.bookbrowsing.Entity.BookEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -34,20 +35,23 @@ public interface BookRepository extends JpaRepository<BookEntity, String> {
     @Query("SELECT b FROM BookEntity  b WHERE b.rating >= :rating")
     List<BookEntity> findBooksByRatingOver(@Param("rating") double rating);
 
+//    /**
+//     *
+//     * @param discount
+//     * @param publisher
+//     * @return
+//     */
+//    @Modifying
+//    @Query("UPDATE BookEntity b SET b.price = b.price * :discount WHERE b.publisher = :publisher ")
+//    List<BookEntity> updatePriceByPublisher(@Param("discount") double discount
+//            ,@Param("publisher")String publisher);
+
     /**
      * SQL Query equivalent:
-     * SELECT title, concat(authfname, ' ', coalesce(authminit, ' '), ' ', authlname) AS author,
-     * genre, price, rating, soldcopies
-     * FROM book_details
-     * ORDER BY soldcopies DESC
+     * SELECT * FROM book_details ORDER BY soldcopies DESC
      * LIMIT 10;
+     * @return JSON data for 10 books that sold the most copies in descending order
      */
-//    @Query("SELECT b.title, "
-//    + "CONCAT(b.authfname, ' ', "
-//    + "CASE WHEN b.authminit IS NOT NULL THEN CONCAT(b.authminit, ' .' ELSE '' END, "
-//    + "b.authlname as author, "
-//    + "b.genre, b.price, b.rating, b.soldcopies "
-//    + "FROM Book b "
-//    + "ORDER BY b.soldcopies DESC")
-
+    @Query("SELECT b FROM BookEntity b ORDER BY b.soldcopies DESC LIMIT 10")
+    List<BookEntity> findTopSellers();
 }

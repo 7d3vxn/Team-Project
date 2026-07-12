@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 // Specifies this is a Controller class
+// Main purpose of Controller is to define the
+// path and Rest API action
 @RestController
 public class BookController {
 
@@ -60,4 +62,24 @@ public class BookController {
     public List<BookEntity> getBooksRatedOver(@RequestParam double rating) {
         return bookService.searchBooksByRatingAndOver(rating);
     }
+
+    /**
+     * Top 10
+     * @return
+     */
+    @GetMapping("/topsellers")
+    public List<BookEntity> getTopSellers() {
+        return bookService.getTopSellers();
+    }
+
+    /**
+     * Discount
+     */
+//    @PutMapping("/publisher/{publisher}/discount")
+//    public void applyDiscount(@PathVariable String publisher,
+//                              @RequestParam Double discountPercent) {
+//        bookService.applyDiscountByPublisher(discountPercent, publisher);
+//    }
+
+
 }

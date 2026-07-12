@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.awt.print.Book;
 import java.awt.print.Pageable;
 import java.util.List;
 
@@ -38,5 +39,15 @@ public class BookService {
         return bookRepo.findBooksByRatingOver(rating);
     }
 
+    // Find top 10 sellers
+    public List<BookEntity> getTopSellers() {
+        return bookRepo.findTopSellers();
+    }
+
+//    // Apply discount by Publisher
+//    public void applyDiscountByPublisher(Double discountPercent, String publisher) {
+//        double discountMultipler = 1 - (discountPercent / 100);
+//        bookRepo.updatePriceByPublisher(discountMultipler, publisher);
+//    }
 
 }
