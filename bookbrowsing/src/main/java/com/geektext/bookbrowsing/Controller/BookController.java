@@ -75,11 +75,11 @@ public class BookController {
     /**
      * Discount
      */
-//    @PutMapping("/publisher/{publisher}/discount")
-//    public void applyDiscount(@PathVariable String publisher,
-//                              @RequestParam Double discountPercent) {
-//        bookService.applyDiscountByPublisher(discountPercent, publisher);
-//    }
+    @PutMapping("/publisher/{publisher}/discount")
+    public void applyDiscount(@PathVariable String publisher,
+                              @RequestParam Double discountPercent) {
+        bookService.applyDiscountByPublisher(discountPercent, publisher);
+    }
 
 
 }

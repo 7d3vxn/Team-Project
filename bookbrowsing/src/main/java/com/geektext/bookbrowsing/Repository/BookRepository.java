@@ -27,6 +27,16 @@ public interface BookRepository extends JpaRepository<BookEntity, String> {
     List<BookEntity> findBooksByGenre(@Param("keyword") String keyword);
 
     /**
+     * Query equivalent to "SELECT * FROM BOOK_DETAIlS WHERE genre LIKE %keyword%
+     * finding publishers containing 'keyword'
+     * @param keyword search input
+     * @return JSON data for books with publisher matching keyword input
+     */
+    @Query("SELECT b FROM BookEntity b WHERE " +
+            "LOWER(b.publisher) LIKE LOWER(CONCAT('%', :keyword, '%'))")
+    List<BookEntity> findBooksByPublisher(@Param("keyword") String keyword);
+
+    /**
      * Query equivalent to "SELECT * FROM BOOK_DETAILS WHERE brating >=3"
      * finds books with particular rating and over
      * @param rating book rating score
@@ -35,16 +45,16 @@ public interface BookRepository extends JpaRepository<BookEntity, String> {
     @Query("SELECT b FROM BookEntity  b WHERE b.rating >= :rating")
     List<BookEntity> findBooksByRatingOver(@Param("rating") double rating);
 
-//    /**
-//     *
-//     * @param discount
-//     * @param publisher
-//     * @return
-//     */
-//    @Modifying
-//    @Query("UPDATE BookEntity b SET b.price = b.price * :discount WHERE b.publisher = :publisher ")
-//    List<BookEntity> updatePriceByPublisher(@Param("discount") double discount
-//            ,@Param("publisher")String publisher);
+    /**
+     * Discount books by publisher
+     * @param discountPercent percentage off to apply to price (EX. 20 for 20% off)
+     * @param publisher publisher of book
+     * @return number of affected rows
+     */
+    @Modifying
+    @Query("UPDATE BookEntity b SET b.price = b.price * (1 - :discountPercent / 100) WHERE b.publisher = :publisher ")
+    int updatePriceByPublisher(@Param("discountPercent") double discountPercent
+            ,@Param("publisher")String publisher);
 
     /**
      * SQL Query equivalent:

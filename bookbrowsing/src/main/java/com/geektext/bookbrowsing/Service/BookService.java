@@ -5,6 +5,7 @@ import com.geektext.bookbrowsing.Repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.awt.print.Book;
 import java.awt.print.Pageable;
@@ -44,10 +45,23 @@ public class BookService {
         return bookRepo.findTopSellers();
     }
 
-//    // Apply discount by Publisher
-//    public void applyDiscountByPublisher(Double discountPercent, String publisher) {
-//        double discountMultipler = 1 - (discountPercent / 100);
-//        bookRepo.updatePriceByPublisher(discountMultipler, publisher);
-//    }
+    // Discount books by publisher
+    @Transactional
+    public void applyDiscountByPublisher(double discountPercent, String publisher) {
+        // Get all books by publisher
+        List<BookEntity> booksByPublisher = bookRepo.findBooksByPublisher(publisher);
+
+        // Apply discount to each book
+        booksByPublisher.forEach(b -> {
+            double originalPrice = b.getPrice();
+            double newPrice = originalPrice * (1 - discountPercent/ 100.0);
+            b.setPrice(Math.round(newPrice * 100.0) / 100.0);
+        });
+
+        // Save changes
+        bookRepo.saveAll(booksByPublisher);
+
+    }
+
 
 }
