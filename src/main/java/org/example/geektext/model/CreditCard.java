@@ -36,7 +36,7 @@ public class CreditCard {
         return expierationDate;
     }
 
-    public void getExpierationDate(String expierationDate) {
+    public void setExpierationDate(String expierationDate) {
         this.expierationDate = expierationDate;
     }
 
