@@ -10,7 +10,7 @@ import org.example.geektext.model.CreditCard;
 @RestController
 @RequestMapping("/users")
 
-public class UserController {
+public class REUserController {
 
     private final UserRepository userRepository;
     private final CreditCardRepository creditCardRepository;
