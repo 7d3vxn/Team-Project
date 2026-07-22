@@ -1,0 +1,22 @@
+### Create Wishlist
+POST http://localhost:8080/wishlist?userId=1&wishlistName=My%20Wishlist
+
+###
+
+### Add Book to Wishlist
+POST http://localhost:8080/wishlist/1/books/101
+
+###
+
+### Get Wishlist Books
+GET http://localhost:8080/wishlist/1/books
+
+###
+
+### Remove Book from Wishlist
+DELETE http://localhost:8080/wishlist/1/books/101
+
+###
+
+### Get Wishlist Books After Removal
+GET http://localhost:8080/wishlist/1/books
